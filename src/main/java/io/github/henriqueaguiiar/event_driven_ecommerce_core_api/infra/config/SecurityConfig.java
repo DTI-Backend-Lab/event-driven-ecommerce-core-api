@@ -10,17 +10,26 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
-
+    /**
+     * Configura as regras de segurança HTTP para a aplicação.
+     * @param http
+     * @return
+     */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-                .headers(headers -> headers.frameOptions(frame -> frame.disable()))
-                .authorizeHttpRequests(auth -> auth.requestMatchers(
-                        "/api/v1/users/**",
-                                "/h2-console/**"
-                ).permitAll().anyRequest().authenticated()
-                );
-        return http.build();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+        try{
+            http.csrf(csrf -> csrf.disable())
+                    .headers(headers -> headers.frameOptions(frame -> frame.disable()))
+                    .authorizeHttpRequests(auth -> auth.requestMatchers(
+                                    "/api/v1/users/**",
+                                    "/h2-console/**"
+                            ).permitAll().anyRequest().authenticated()
+                    );
+            return http.build();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Bean

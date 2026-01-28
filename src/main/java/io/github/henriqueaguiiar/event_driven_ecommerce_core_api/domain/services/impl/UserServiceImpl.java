@@ -6,10 +6,12 @@ import io.github.henriqueaguiiar.event_driven_ecommerce_core_api.domain.mapper.U
 import io.github.henriqueaguiiar.event_driven_ecommerce_core_api.domain.model.User;
 import io.github.henriqueaguiiar.event_driven_ecommerce_core_api.domain.repository.UserRepository;
 import io.github.henriqueaguiiar.event_driven_ecommerce_core_api.domain.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -29,6 +31,7 @@ public class UserServiceImpl implements UserService {
                user.setPassword(passwordEncoder.encode(user.getPassword()));
             }
             userRepository.save(user);
+            log.info("User created: {}, Id: {}",user.getName(), user.getId());
             return userMapper.toOutputDTO(user);
         }
     }
