@@ -1,9 +1,6 @@
 package io.github.henriqueaguiiar.event_driven_ecommerce_core_api.domain.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +11,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Table(name ="users")
+@Table(name ="users", schema = "public")
 @Entity
 @Data
 @AllArgsConstructor
@@ -24,6 +21,7 @@ public class User implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(name = "name", nullable = false)
     private String name;

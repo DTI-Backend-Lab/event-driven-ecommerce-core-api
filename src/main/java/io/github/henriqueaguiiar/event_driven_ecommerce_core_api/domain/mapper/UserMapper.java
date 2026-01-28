@@ -13,12 +13,12 @@ public class UserMapper {
 
     public User toEntity(UserInputDTO userInputDTO) {
         User user = new User();
-        user.setId(UUID.randomUUID());
         user.setName(userInputDTO.name());
         user.setEmail(userInputDTO.email());
         user.setPassword(userInputDTO.password());
         return user;
     }
+
 
     public UserOutputDTO toOutputDTO(User user) {
         return  new UserOutputDTO(
